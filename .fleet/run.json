@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "type": "python",
+            "name": "Python run",
+            "file": "solver.py",
+            "dependsOn": ["Cargo build release"],
+            "workingDir": "anyint/",
+        },
+        {
+            "type": "cargo",
+            "name": "Cargo build release",
+            "cargoArgs": ["build", "--release"],
+            "workingDir": "anyint/src/",
+        },
+        {
+            // https://doc.rust-lang.org/book/ch12-01-accepting-command-line-arguments.html
+            "type": "cargo",
+            "name": "Cargo run",
+            "cargoArgs": ["run"],
+            "workingDir": "anyint/src/",
+            "executableArgs": ["args1", "args2"],
+        },
+        {
+            "type": "python",
+            "name": "Python submit",
+            "file": "submit.py",
+            "workingDir": "anyint/",
+        },
+
+    ]
+}
