@@ -3,6 +3,7 @@ _coursera
 .DS_store
 *.java
 *Java.py
+*/target/
 
 
 # Byte-compiled / optimized / DLL files

@@ -5,27 +5,27 @@
             "name": "Python run",
             "file": "solver.py",
             "dependsOn": ["Cargo build release"],
-            "workingDir": "anyint/",
+            "workingDir": "knapsack/",
+            "arguments": ["data/ks_4_0"],
         },
         {
             "type": "cargo",
             "name": "Cargo build release",
             "cargoArgs": ["build", "--release"],
-            "workingDir": "anyint/src/",
+            "workingDir": "knapsack/src/",
         },
         {
             // https://doc.rust-lang.org/book/ch12-01-accepting-command-line-arguments.html
             "type": "cargo",
             "name": "Cargo run",
             "cargoArgs": ["run"],
-            "workingDir": "anyint/src/",
-            "executableArgs": ["args1", "args2"],
+            "workingDir": "knapsack/src",
         },
         {
             "type": "python",
             "name": "Python submit",
             "file": "submit.py",
-            "workingDir": "anyint/",
+            "workingDir": "knapsack/",
         },
 
     ]
