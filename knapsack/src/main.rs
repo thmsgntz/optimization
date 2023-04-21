@@ -21,17 +21,13 @@ fn greedy(sack: Knapsack, vitems: Vec<Item>) {
     let picked_values: i32 = items
         .0
         .iter_mut()
-        .take_while(|item| {
+        .map(|mut item| -> i32 {
             if k - item.w > 0 {
                 k -= item.w;
-                return true;
+                item.is_picked = true;
+                return item.v;
             }
-
-            false
-        })
-        .map(|mut item| -> i32 {
-            item.is_picked = true;
-            item.v
+            0
         })
         .sum();
 

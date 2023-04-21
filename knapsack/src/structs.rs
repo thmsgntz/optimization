@@ -24,6 +24,10 @@ impl Items {
     pub fn sort_by_index(&mut self) {
         self.0.sort_unstable_by_key(|item| item.index);
     }
+
+    pub fn sort_by_density(&mut self) {
+        self.0.sort_unstable_by_key(|item| item.v/item.w);
+    }
 }
 
 impl fmt::Display for Item {
