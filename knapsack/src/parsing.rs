@@ -24,9 +24,11 @@ pub fn parse_input_data(args: Vec<String>) -> Result<(Knapsack, Vec<Item>), Stri
 
         let vi: Vec<Item> = args_splitted
             .filter(|s| !s.is_empty())
-            .map(|s: &str| -> Item {
+            .enumerate()
+            .map(|(i, s)| -> Item {
                 let mut line = s.split(' ');
                 Item {
+                    index: i as i32,
                     v: line
                         .next()
                         .unwrap_or("-3")
@@ -39,6 +41,7 @@ pub fn parse_input_data(args: Vec<String>) -> Result<(Knapsack, Vec<Item>), Stri
                         .to_string()
                         .parse::<i32>()
                         .unwrap_or(-4),
+                    is_picked: false,
                 }
             })
             .collect::<Vec<Item>>();
@@ -72,10 +75,30 @@ mod tests {
             (
                 Knapsack { capacity: 50 },
                 vec![
-                    Item { v: 1, w: 20 },
-                    Item { v: 2, w: 30 },
-                    Item { v: 3, w: 30 },
-                    Item { v: 4, w: 30 },
+                    Item {
+                        index: 0,
+                        v: 1,
+                        w: 20,
+                        is_picked: false
+                    },
+                    Item {
+                        index: 1,
+                        v: 2,
+                        w: 30,
+                        is_picked: false
+                    },
+                    Item {
+                        index: 2,
+                        v: 3,
+                        w: 30,
+                        is_picked: false
+                    },
+                    Item {
+                        index: 3,
+                        v: 4,
+                        w: 30,
+                        is_picked: false
+                    },
                 ]
             )
         );
@@ -83,7 +106,7 @@ mod tests {
 
     #[test]
     fn parse_files() {
-        let file_path = data_path!("ks_60_0");
+        let file_path = data_path!("ks_10000_0");
         let contents =
             fs::read_to_string(file_path).expect("Should have been able to read the file");
 
@@ -108,14 +131,22 @@ mod tests {
 
         let vi_first = actual_vi.get(0).unwrap();
         let vi_last = actual_vi.get(actual_vi.len() - 1).unwrap();
+        let vi_sixty = actual_vi.get(59).unwrap();
 
-        assert_eq!(vi_first.v, 90000);
-        assert_eq!(vi_first.w, 90001);
+        assert_eq!(vi_first.index, 0);
+        assert_eq!(vi_first.v, 122416);
+        assert_eq!(vi_first.w, 120553);
 
-        assert_eq!(vi_last.v, 82500);
-        assert_eq!(vi_last.w, 82501);
+        assert_eq!(vi_sixty.index, 59);
+        assert_eq!(vi_sixty.v, 154292);
+        assert_eq!(vi_sixty.w, 158464);
+
+        assert_eq!(vi_last.index, (actual_vi.len() - 1) as i32);
+        assert_eq!(vi_last.v, 152937);
+        assert_eq!(vi_last.w, 145145);
 
         actual_vi.into_iter().for_each(|item: Item| {
+            assert!(item.index >= 0);
             assert!(item.v > 0);
             assert!(item.w > 0);
         });
