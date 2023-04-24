@@ -3,7 +3,17 @@ mod parsing;
 mod structs;
 
 use crate::parsing::parse_input_data;
-use crate::structs::{Item, Items, Knapsack};
+use crate::structs::{Item, Items, Knapsack, DynamicProg, print_result};
+
+fn dynamic_programing(sack: Knapsack, vitems: &mut Vec<Item>) {
+    let capacity = sack.capacity as usize;
+
+    let mut dynamic_prog = DynamicProg::new(capacity, vitems.len());
+    dynamic_prog.fill(capacity, vitems);
+    let solution = dynamic_prog.solve(vitems);
+
+    println!("{}", print_result(vitems, true, solution));
+}
 
 fn greedy(sack: Knapsack, vitems: Vec<Item>) {
     // 1. sort items by decreasing weight
@@ -44,11 +54,16 @@ fn main() {
 
     match k {
         Err(v) => eprintln!("{}", v),
-        Ok((kn, vi)) => {
+        Ok((kn, mut vi)) => {
             //println!("Knap: {:#?}", kn);
             //println!("V<item>: {:#?}", vi);
 
-            greedy(kn, vi);
+            if vi.len() > 5000 {
+                greedy(kn, vi);
+            }
+            else {
+                dynamic_programing(kn, &mut vi);
+            }
         }
     }
 }

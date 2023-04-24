@@ -22,7 +22,7 @@ pub fn parse_input_data(args: Vec<String>) -> Result<(Knapsack, Vec<Item>), Stri
                 .unwrap_or(-2),
         };
 
-        let vi: Vec<Item> = args_splitted
+        let vi = args_splitted
             .filter(|s| !s.is_empty())
             .enumerate()
             .map(|(i, s)| -> Item {
