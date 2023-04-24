@@ -6,7 +6,7 @@
             "file": "solver.py",
             "dependsOn": ["Cargo build release"],
             "workingDir": "knapsack/",
-            "arguments": ["data/ks_4_0"],
+            "arguments": ["data/ks_10000_0"],
         },
         {
             "type": "cargo",
