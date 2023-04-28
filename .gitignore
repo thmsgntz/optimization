@@ -5,6 +5,9 @@ _coursera
 *Java.py
 */target/
 
+# coloring
+coloring/data/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
