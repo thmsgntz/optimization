@@ -4,6 +4,7 @@ _coursera
 *.java
 *Java.py
 */target/
+slides/
 
 # coloring
 coloring/data/
