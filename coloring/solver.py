@@ -1,8 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import subprocess
+
+RUST_BINARIES = "target/release/coloring"
+DEBUG = True
 
 
-def solve_it(input_data):
+def solve_it_old(input_data):
     # Modify this code to run your optimization algorithm
 
     # parse the input
@@ -29,7 +33,16 @@ def solve_it(input_data):
     return output_data
 
 
-import sys
+def solve_it(input_data):
+    output = subprocess.run(["./" + RUST_BINARIES, input_data], capture_output=True, text=True)
+
+    if DEBUG:
+        s = output.stdout
+    else:
+        s = str(output.stdout).split('\n')
+
+    return s
+
 
 if __name__ == '__main__':
     import sys
